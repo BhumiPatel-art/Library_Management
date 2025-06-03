@@ -35,6 +35,14 @@ class Library:
                 })
 
     def add_book(self, title):
+        if title in self.books:
+            print(f"'{title}' already exists.")
+        else:
+            details = fetch_book_details(title)
+            book = Book(title, details["author"], details["summary"])
+            self.books[title] = book
+            self.save_books_to_csv()
+            print(f"Added: {book}")
 
     def remove_book(self, title):
 
