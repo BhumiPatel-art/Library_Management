@@ -45,13 +45,33 @@ class Library:
             print(f"Added: {book}")
 
     def remove_book(self, title):
-
+        if title in self.books:
+            del self.books[title]
+            self.save_books_to_csv()
+            print(f"Removed '{title}' from library.")
+        else:
+            print(f"'{title}' not found in library.")
 
     def view_available_books(self):
-
+        print("\nAvailable books:")
+        for title, book in self.books.items():
+            if title not in self.borrowed_books:
+                print(f"- {book}")
+        print()
 
     def borrow_book(self, member, title):
-
+        if title not in self.books:
+            print(f"Book '{title}' does not exist.")
+        elif title in self.borrowed_books:
+            print(f"Book '{title}' is already borrowed.")
+        else:
+            borrowed = [b for b, m in self.borrowed_books.items() if m == member]
+            if len(borrowed) >= MAX_BORROWED_BOOKS:
+                print(f"You cannot borrow more than {MAX_BORROWED_BOOKS} books.")
+            else:
+                self.borrowed_books[title] = member
+                self.borrow_count[title] += 1
+                print(f"{member} borrowed '{title}'.")
 
     def return_book(self, member, title):
 
