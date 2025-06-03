@@ -74,7 +74,11 @@ class Library:
                 print(f"{member} borrowed '{title}'.")
 
     def return_book(self, member, title):
-
+        if self.borrowed_books.get(title) == member:
+            del self.borrowed_books[title]
+            print(f"{member} returned '{title}'.")
+        else:
+            print(f"You did not borrow '{title}'.")
 
     def view_borrowed_books(self):
 
