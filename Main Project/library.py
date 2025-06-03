@@ -23,6 +23,16 @@ class Library:
             print(f"No CSV file found. Starting with an empty library.")
 
     def save_books_to_csv(self):
+        with open(BOOKS_CSV_FILE, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['title', 'author', 'summary']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for book in self.books.values():
+                writer.writerow({
+                    'title': book.title,
+                    'author': book.author,
+                    'summary': book.summary
+                })
 
     def add_book(self, title):
 
