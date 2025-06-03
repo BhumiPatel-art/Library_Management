@@ -1,3 +1,4 @@
+from collections import defaultdict
 
 from books import Book, fetch_book_details
 
@@ -6,8 +7,20 @@ BOOKS_CSV_FILE = "books.csv"
 
 class Library:
     def _init_(self):
+        self.books = {}
+        self.borrowed_books = {}
+        self.borrow_count = defaultdict(int)
+        self.load_books_from_csv()
 
     def load_books_from_csv(self):
+        try:
+            with open(BOOKS_CSV_FILE, newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    book = Book(row['title'], row['author'], row['summary'])
+                    self.books[book.title] = book
+        except FileNotFoundError:
+            print(f"No CSV file found. Starting with an empty library.")
 
     def save_books_to_csv(self):
 
