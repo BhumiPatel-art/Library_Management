@@ -81,6 +81,13 @@ class Library:
             print(f"You did not borrow '{title}'.")
 
     def view_borrowed_books(self):
-       afklsd
+        print("\nBorrowed books:")
+        for title, member in self.borrowed_books.items():
+            print(f"- {title} is borrowed by {member}")
+        print()
 
     def view_most_popular_books(self):
+        print("\nMost popular books:")
+        for title, count in sorted(self.borrow_count.items(), key=lambda item: item[1], reverse=True):
+            print(f"- {title}: borrowed {count} times")
+        print()
