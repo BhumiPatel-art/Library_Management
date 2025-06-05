@@ -66,5 +66,5 @@ def main():
             print("Invalid choice.")
 
 
-if __name__ == "_main_":
-    main()
+
+main()
