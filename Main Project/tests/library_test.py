@@ -4,24 +4,31 @@ from library import Library
 from io import StringIO
 import sys
 
-def test_borrow_limit():
+def test_remove_book():
+    # Setup
     library = Library()
     library.books = {
         "Book A": Book("Book A", "Author A", "Summary A"),
         "Book B": Book("Book B", "Author B", "Summary B"),
-        "Book C": Book("Book C", "Author C", "Summary C"),
-        "Book D": Book("Book D", "Author D", "Summary D")
     }
 
-    member = "test_user"
-    library.borrow_book(member, "Book A")
-    library.borrow_book(member, "Book B")
-    library.borrow_book(member, "Book C")
-
+    # Capture output for removing an existing book
     captured_output = StringIO()
     sys.stdout = captured_output
     try:
-        library.borrow_book(member, "Book D")
+        library.remove_book("Book A")
     finally:
         sys.stdout = sys.__stdout__
-    assert "cannot borrow more than" in captured_output.getvalue().lower()
+
+    assert "removed 'book a'" in captured_output.getvalue().lower()
+    assert "Book A" not in library.books
+
+    # Capture output for removing a non-existent book
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    try:
+        library.remove_book("Book X")
+    finally:
+        sys.stdout = sys.__stdout__
+
+    assert "'book x' not found" in captured_output.getvalue().lower()
