@@ -44,32 +44,40 @@ def main():
                     print("❌ Invalid choice. Please try again.")
 
         elif choice == "2":
-            while True:
-                divider("Librarian Menu")
-                print("🔧 Librarian Options:")
-                print("1️⃣ Add book (fetches from Google Books API)")
-                print("2️⃣ Remove book")
-                print("3️⃣ View borrowed books")
-                print("4️⃣ View most popular books")
-                print("5️⃣ Back to main menu")
-                action = input("👉 Your choice: ")
+            divider("Librarian Login")
+            login_id = input("🆔 Enter Librarian ID: ")
+            password = input("🔑 Enter Password: ")
 
-                if action == "1":
-                    title = input("➕ Enter book title to add: ")
-                    library.add_book(title)
-                elif action == "2":
-                    title = input("➖ Enter book title to remove: ")
-                    library.remove_book(title)
-                elif action == "3":
-                    divider("Borrowed Books")
-                    library.view_borrowed_books()
-                elif action == "4":
-                    divider("Most Popular Books")
-                    library.view_most_popular_books()
-                elif action == "5":
-                    break
-                else:
-                    print("❌ Invalid choice. Please try again.")
+            if login_id == "Admin" and password == "Admin":
+                print("✅ Login successful!")
+                while True:
+                    divider("Librarian Menu")
+                    print("🔧 Librarian Options:")
+                    print("1️⃣ Add book (fetches from Google Books API)")
+                    print("2️⃣ Remove book")
+                    print("3️⃣ View borrowed books")
+                    print("4️⃣ View most popular books")
+                    print("5️⃣ Back to main menu")
+                    action = input("👉 Your choice: ")
+
+                    if action == "1":
+                        title = input("➕ Enter book title to add: ")
+                        library.add_book(title)
+                    elif action == "2":
+                        title = input("➖ Enter book title to remove: ")
+                        library.remove_book(title)
+                    elif action == "3":
+                        divider("Borrowed Books")
+                        library.view_borrowed_books()
+                    elif action == "4":
+                        divider("Most Popular Books")
+                        library.view_most_popular_books()
+                    elif action == "5":
+                        break
+                    else:
+                        print("❌ Invalid choice. Please try again.")
+            else:
+                print("❌ Invalid credentials. Access denied.")
 
         elif choice == "3":
             print("\n👋 Thank you for using the Community Library System. Goodbye!")
